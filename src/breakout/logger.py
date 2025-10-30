@@ -18,7 +18,7 @@ try:
 except ImportError:
     import tomli as tomllib  # type: ignore[import-not-found, no-redef]
 
-from project_name.config import LOGGER_CONFIG_FILE, PACKAGE_NAME
+from breakout.config import LOGGER_CONFIG_FILE, PACKAGE_NAME
 
 ROOT_LOGGER_NAME = PACKAGE_NAME
 
