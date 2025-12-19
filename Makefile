@@ -1,6 +1,6 @@
 # Inspired by: https://blog.mathieu-leplatre.info/tips-for-your-makefile-with-python.html
 
-PYMODULE := project_name
+PYMODULE := breakout
 TESTS := tests
 INSTALL_STAMP := .install.stamp
 UV := $(shell command -v uv 2> /dev/null)
