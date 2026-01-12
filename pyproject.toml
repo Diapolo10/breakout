@@ -9,6 +9,7 @@ description = "A template uv project structure."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
+    "arcade>=3.0",
     "python-dotenv>=1.0.1",
     "tomli>=2.2.1; python_version < '3.11'",
 ]
@@ -34,15 +35,16 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://pypi.org/project/project-name/"
-Repository = "https://github.com/Diapolo10/project-name"
-Documentation = "https://github.com/Diapolo10/project-name/tree/main/docs"
+Homepage = "https://pypi.org/project/breakout/"
+Repository = "https://github.com/Diapolo10/breakout"
+Documentation = "https://github.com/Diapolo10/breakout/tree/main/docs"
 
 [dependency-groups]
 dev = [
     "hatch>=1.14.0",
     "mypy>=1.14.0",
     "pytest>=8.3.4",
+    "pytest-benchmark>=5.1.0",
     "pytest-cov>=6.0.0",
     "ruff>=0.8.4",
     "tox>=4.23.2",
@@ -64,7 +66,7 @@ omit = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/project_name"]
+packages = ["src/breakout"]
 
 [tool.hatch.version]
 source = "uv-dynamic-versioning"
