@@ -9,7 +9,7 @@ import logging
 import logging.config
 import logging.handlers
 import time
-from enum import Enum, auto
+from enum import StrEnum, auto
 from pathlib import Path
 from typing import Any, NotRequired, TypedDict, override
 
@@ -25,14 +25,8 @@ ROOT_LOGGER_NAME = PACKAGE_NAME
 __all__ = ("ROOT_LOGGER_NAME", "setup_logging")
 
 
-class RecordAttrs(str, Enum):
+class RecordAttrs(StrEnum):
     """Log record attributes."""
-
-    @override
-    @staticmethod
-    def _generate_next_value_(name: str, start: int, count: int, last_values: list) -> str:
-        """Create enum values from the names automatically."""
-        return name
 
     args = auto()
     asctime = auto()
@@ -48,7 +42,7 @@ class RecordAttrs(str, Enum):
     msecs = auto()
     message = auto()
     msg = auto()
-    name: str = "name"
+    name = auto()  # type: ignore[assignment]
     pathname = auto()
     process = auto()
     processName = auto()
@@ -64,7 +58,7 @@ class ColouredFormatter(logging.Formatter):
 
     # This enforces UTC timestamps regardless of local timezone
     # and is necessary for easier log comparisons
-    converter = time.gmtime
+    converter = time.gmtime  # type: ignore[assignment]
 
     @override
     def format(self, record: logging.LogRecord) -> str:
@@ -111,7 +105,7 @@ class CustomQueueHandler(logging.handlers.QueueHandler):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         queue_handler = logging.getHandlerByName("queue_handler")
         if queue_handler is None:
-            super().__init__(*args, **kwargs)  # type: ignore[arg-type]
+            super().__init__(*args, **kwargs)
 
 
 class JSONLogFormatter(logging.Formatter):
@@ -132,7 +126,7 @@ class JSONLogFormatter(logging.Formatter):
             "message": record.getMessage(),
             "timestamp": dt.datetime.fromtimestamp(
                 record.created,
-                tz=dt.timezone.utc,
+                tz=dt.UTC,
             ),
         }
 

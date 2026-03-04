@@ -7,10 +7,9 @@ name = "python-uv-template"
 dynamic = ["version"]
 description = "A template uv project structure."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.13"
 dependencies = [
-    "python-dotenv>=1.0.1",
-    "tomli>=2.2.1; python_version < '3.11'",
+    "python-dotenv>=1.2.2",
 ]
 authors = [
     {name = "Lari Liuhamo", email = "lari.liuhamo+pypi@gmail.com"},
@@ -24,10 +23,8 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Typing :: Typed",
@@ -40,13 +37,13 @@ Documentation = "https://github.com/Diapolo10/project-name/tree/main/docs"
 
 [dependency-groups]
 dev = [
-    "hatch>=1.14.0",
-    "mypy>=1.14.0",
-    "pytest>=8.3.4",
-    "pytest-cov>=6.0.0",
-    "ruff>=0.8.4",
-    "tox>=4.23.2",
-    "tox-gh-actions>=3.2.0",
+    "hatch>=1.16.5",
+    "mypy>=1.19.1",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.15.4",
+    "tox>=4.47.3",
+    "tox-gh-actions>=3.5.0",
 ]
 
 [tool.coverage.report]
@@ -70,7 +67,7 @@ packages = ["src/project_name"]
 source = "uv-dynamic-versioning"
 
 [tool.pytest.ini_options]
-minversion = "6.0"
+minversion = "7.0"
 addopts = """
 --doctest-modules \
 --cov=./ \
@@ -96,7 +93,6 @@ lint.ignore = [
 line-length = 120
 show-fixes = true
 src = ["src",]
-target-version = "py39"
 
 [tool.ruff.lint.flake8-copyright]
 author = "Lari Liuhamo"
@@ -126,16 +122,13 @@ ban-relative-imports = "all"
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-env_list = py3{9, 10, 11, 12}, pypy3
+env_list = py3{13, 14}
 skip_missing_interpreters = true
 
 [gh-actions]
 python =
-    3.9: py39
-    3.10: py310
-    3.11: py311
-    3.12: py312
-    pypy-3.10: pypy3
+    3.13: py313
+    3.14: py314
 
 [testenv]
 pass_env =
@@ -148,6 +141,13 @@ commands =
     uv run --frozen coverage report
 """
 
+[tool.uv]
+cache-keys = [
+    { file = "pyproject.toml" },
+    { git = { commit = true, tags = true }},
+]
+
 [tool.uv-dynamic-versioning]
+fallback-version = "0.0.0"
 strict = false
 vcs = "git"
